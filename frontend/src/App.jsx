@@ -3,14 +3,14 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Layout from "./components/Layout";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import FaceDetection from "./components/FaceDetection";
+import FaceRegistration from "./components/FaceRegistration";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Signup />} />
-      <Route path="login" element={<Login />} />
-      <Route path="face-detection" element={<FaceDetection />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/Face-registration" element={<FaceRegistration />} />
     </Route>
   )
 );
