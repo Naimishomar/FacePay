@@ -8,6 +8,7 @@ import { v2 as cloudinary } from 'cloudinary'; // Updated Cloudinary import
 // Import our new route files
 import authRoute from './routes/auth.route.js';
 import imageRoute from './routes/image.route.js'; 
+import paymentRoute from './routes/payment.route.js';
 
 dotenv.config();
 
@@ -36,6 +37,8 @@ app.use('/api/auth', authRoute);
 
 // Maps to /api/image/upload
 app.use("/api/image", imageRoute);
+
+app.use('/api/payment', paymentRoute);
 
 // Simple health check route
 app.get('/', (req, res) => {

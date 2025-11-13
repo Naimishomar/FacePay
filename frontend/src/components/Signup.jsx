@@ -128,7 +128,7 @@ function Signup() {
 
         // 3. Navigate to the face detection page.
         // THIS IS THE REDIRECTION POINT
-        navigate('/face-detection', { state: { userData } });
+        navigate('/Face-registration', { state: { userData } });
     };
 
     const SignupComponent = () => (
