@@ -10,7 +10,6 @@ export const register = async (req, res) => {
     if (!name || !email || !phone || !password || !otp) {
       return res.status(400).json({ message: 'Please fill all the fields', success: false });
     }
-
     const existing = await User.findOne({ $or: [{ email }, { phone }] });
     if (existing) return res.status(400).json({ message: 'User already exists', success: false });
 

@@ -1,0 +1,154 @@
+:root {
+  --color-primary: #007bff; /* Blue for primary actions */
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-background: #f8f9fa;
+  --color-light-gray: #e9ecef;
+  --color-text: #343a40;
+  --border-radius: 8px;
+  --shadow-subtle: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Wrapper */
+.face-capture-wrapper {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-background);
+  font-family: Arial, sans-serif;
+  color: var(--color-text);
+}
+
+.main-header {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-light-gray);
+  padding-bottom: 10px;
+}
+
+/* Status Messages */
+.status-loading {
+  padding: 10px;
+  background-color: #ffc107;
+  color: #343a40;
+  border-radius: var(--border-radius);
+  margin-bottom: 16px;
+}
+
+.status-error {
+  padding: 10px;
+  background-color: var(--color-danger);
+  color: white;
+  border-radius: var(--border-radius);
+  margin-bottom: 16px;
+}
+
+/* Layout (Desktop First) */
+.content-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* Video Container (Responsive Aspect Ratio Fix) */
+.video-container {
+  max-width: 640px; 
+  width: 100%;
+  position: relative; 
+  
+  /* CRITICAL: Defines the height based on 75% of the width (480/640 = 0.75 or 75%) */
+  padding-top: 75%; 
+  
+  /* CRITICAL: Resets the height to 0, forcing padding-top to control height */
+  height: 0; 
+  
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-subtle);
+  background-color: #000;
+}
+
+/* Video and Canvas elements MUST be absolute and fill 100% of the container */
+.webcam-video, .webcam-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.webcam-video {
+  transform: scaleX(-1);
+  object-fit: cover;
+}
+
+/* Controls Panel */
+.controls-panel {
+  flex-grow: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card Style for Boxes */
+.card {
+  padding: 16px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-subtle);
+}
+
+.card h4 {
+  margin-top: 0;
+  border-bottom: 1px solid var(--color-light-gray);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  color: var(--color-primary);
+}
+
+/* Primary Action Button */
+.action-button.primary {
+  padding: 12px 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  transition: background-color 0.2s, box-shadow 0.2s;
+  text-transform: uppercase;
+}
+
+.action-button.primary:hover:not(:disabled) {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-button.primary:disabled {
+  background-color: var(--color-light-gray);
+  color: #6c757d;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Captured Images Section */
+.captured-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}
+/* ... (rest of the detailed CSS for .captured-item, .link-button, etc.) ... */
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+  .content-layout {
+    flex-direction: column; /* Stacks the video and controls vertically */
+  }
+
+  .video-container {
+    max-width: 100%; /* Video takes full width */
+  }
+}

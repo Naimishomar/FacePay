@@ -20,17 +20,13 @@ export const sendOtpController = async (req, res) => {
     } catch (smsErr) {
       console.error('Twilio send failed:', smsErr?.message || smsErr);
     }
-
     const payload = { success: true, message: 'OTP sent' };
     if (process.env.NODE_ENV !== 'production') payload.otp = otp; // dev helper
-
     return res.json(payload);
   } catch (err) {
     console.error('sendOtpController error:', err);
     return res.status(500).json({ success: false, message: 'Failed to send OTP' });
-  }
-};
-
+  }};
 export const verifyOtp = (phone, otp) => {
   const entry = otpStore.get(phone);
   if (!entry) return false;

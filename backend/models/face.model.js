@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 const faceCaptureSchema = new mongoose.Schema({
   userId: {
-    type: String,
-    required :true,
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
   },
   captures: {
     FRONT: String,
@@ -16,5 +17,5 @@ const faceCaptureSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-const FaceCapture =  mongoose.model("FaceCapture", faceCaptureSchema);
+const FaceCapture = mongoose.model("FaceCapture", faceCaptureSchema);
 export default FaceCapture;

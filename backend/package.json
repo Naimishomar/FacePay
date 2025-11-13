@@ -24,6 +24,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nanoid": "^5.1.6",
     "nodemon": "^3.1.11",
+    "stripe": "^19.3.1",
     "twilio": "^5.10.5"
   }
 }

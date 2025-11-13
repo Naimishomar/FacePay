@@ -2,7 +2,6 @@
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 dotenv.config();
-
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
@@ -18,7 +17,6 @@ export const sendOTPViaSMS = async (phoneNumber, otp) => {
       from: process.env.TWILIO_PHONE_NUMBER,
       to: phoneNumber,
     });
-
     // Add a safety timeout (10s) so Twilio slowness doesn't hang the server.
     const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Twilio timeout')), 10000));
     await Promise.race([sendPromise, timeout]);
