@@ -12,6 +12,63 @@ const AUTO_CAPTURE_DELAY_MS = 800;
 const UPLOAD_API_ENDPOINT = "http://localhost:3000/api/image/upload"; // Backend endpoint for Cloudinary upload
 const REGISTER_API_ENDPOINT = "http://localhost:3000/api/auth/register"; // Final registration endpoint
 
+
+// Call this when the page loads or when user clicks "Start camera"
+async function checkAndRequestCamera() {
+  try {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.error("getUserMedia not supported by this browser.");
+      return;
+    }
+
+    // Check permission status (may be "granted", "denied", or "prompt")
+    if (navigator.permissions && navigator.permissions.query) {
+      try {
+        const status = await navigator.permissions.query({ name: "camera" });
+        console.log("Camera permission state:", status.state);
+        status.onchange = () => console.log("Camera permission changed to:", status.state);
+      } catch (e) {
+        console.log("Permissions API camera query not supported on this origin.");
+      }
+    }
+
+    // Attempt to open camera (user will be prompted if needed)
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+    console.log("Camera stream obtained:", stream);
+    // attach to video element as you already do
+    document.querySelector("video").srcObject = stream;
+  } catch (err) {
+    // More specific error handling
+    console.error("getUserMedia error name:", err.name, "message:", err.message);
+    switch (err.name) {
+      case "NotAllowedError":
+      case "PermissionDeniedError":
+        alert("Camera access denied. Check browser site settings and OS privacy permissions.");
+        break;
+      case "NotFoundError":
+      case "DevicesNotFoundError":
+        alert("No camera found. Make sure a webcam is connected and not in use by another app.");
+        break;
+      case "NotReadableError":
+        alert("Camera is already in use by another application.");
+        break;
+      case "OverconstrainedError":
+        alert("Requested camera constraints could not be satisfied. Try simple constraints.");
+        break;
+      default:
+        alert("Camera error: " + err.message);
+    }
+  }
+}
+
+checkAndRequestCamera();
+
+// 1) List devices
+navigator.mediaDevices.enumerateDevices().then(devs => console.table(devs));
+
+// 2) Show supported constraints
+console.log("Supported constraints:", navigator.mediaDevices.getSupportedConstraints());
+
 // Custom Modal Message Component (replaces alert())
 const ModalMessage = ({ message, isError, onClose }) => {
     if (!message) return null;

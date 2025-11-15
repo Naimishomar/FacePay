@@ -44,8 +44,6 @@ const userSchema = new mongoose.Schema({
   pin:{
     type: String,
     required: true,
-    minLength: 6,
-    maxLength: 6,
   },
   // Changed balance to Number for financial safety
   balance:{
